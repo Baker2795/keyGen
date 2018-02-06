@@ -1,0 +1,6 @@
+
+/* Class = "UILabel"; text = "How many characters?"; ObjectID = "NMB-P6-Tlj"; */
+"NMB-P6-Tlj.text" = "How many characters?";
+
+/* Class = "UIButton"; normalTitle = "Generate Key"; ObjectID = "QWr-Da-XYZ"; */
+"QWr-Da-XYZ.normalTitle" = "Generate Key";
