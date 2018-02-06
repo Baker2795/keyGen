@@ -20,6 +20,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		
+		let screenSize = UIScreen.main.bounds.size
+		let screenWidth = screenSize.width
+		let screenHeight = screenSize.height
+		
+		generateKeyButtonOutlet.layer.cornerRadius = 4.0
+		
 	//TEST
 		//change the 10 & the 0 to get different key types & lengths)
 		//see below for key type to number value
@@ -27,6 +34,50 @@ class ViewController: UIViewController {
 		//& assign numbers to the segmented control choice, then take that number here instead of 0
 		generateKey(keyLength: 10, keyType: 0)
     }
+	
+	@IBOutlet weak var characterInputOutlet: UITextField!
+	@IBAction func characterInputAction(_ sender: Any) {
+		
+	}
+	
+	
+	
+	@IBOutlet weak var keyTypeOutlet: UISegmentedControl!
+	@IBAction func keyTypeAction(_ sender: Any) {
+		
+	}
+	
+	
+	
+	@IBOutlet weak var isCapitalOutlet: UISwitch!
+	@IBAction func isCapitalAction(_ sender: Any) {
+		
+	}
+	
+	
+	
+	@IBOutlet weak var generateKeyButtonOutlet: UIButton!
+	@IBAction func generateKeyButtonAction(_ sender: Any) {
+		generateKey(keyLength: 10, keyType: 0)
+		
+	}
+	
+	
+	
+	@IBOutlet weak var textViewOutlet: UITextView!
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	func generateKey(keyLength: Int, keyType: Int){
 		//--Key Type Letters--//
@@ -56,6 +107,7 @@ class ViewController: UIViewController {
 			randomString += NSString(characters: &nextChar, length: 1) as String
 		}
 		print(randomString)
+		textViewOutlet.text = randomString
 		return randomString
 	}
 	

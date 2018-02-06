@@ -24,6 +24,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="characterInputAction:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="R0f-6P-N5x"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="How many characters?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMB-P6-Tlj">
                                 <rect key="frame" x="16" y="64" width="175" height="21"/>
@@ -40,10 +43,16 @@
                                     <segment title="Letters"/>
                                     <segment title="Both"/>
                                 </segments>
+                                <connections>
+                                    <action selector="keyTypeAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="tiL-GO-UOa"/>
+                                </connections>
                             </segmentedControl>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dv-y0-GEr">
                                 <rect key="frame" x="260" y="208" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="isCapitalAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="QFI-XQ-LNX"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Include capital letters?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ike-iY-PoU">
                                 <rect key="frame" x="16" y="213" width="199" height="21"/>
@@ -62,12 +71,23 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QWr-Da-XYZ">
                                 <rect key="frame" x="141" y="275" width="93" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.4521755642361111" blue="0.86135525173611116" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Generate Key"/>
+                                <connections>
+                                    <action selector="generateKeyButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tb3-J2-ey5"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="characterInputOutlet" destination="bxv-gY-TzH" id="EmB-JE-DFc"/>
+                        <outlet property="generateKeyButtonOutlet" destination="QWr-Da-XYZ" id="jjZ-Ul-M9J"/>
+                        <outlet property="isCapitalOutlet" destination="4dv-y0-GEr" id="H96-Ir-Do7"/>
+                        <outlet property="keyTypeOutlet" destination="Kis-te-J1F" id="7SN-CW-acg"/>
+                        <outlet property="textViewOutlet" destination="p2M-0a-Gl0" id="JGC-OM-tma"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
