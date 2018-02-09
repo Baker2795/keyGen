@@ -126,7 +126,26 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	@IBOutlet weak var generateKeyButtonOutlet: UIButton!
 	@IBAction func generateKeyButtonAction(_ sender: Any) {
 		generateKey(keyLength: userLength, keyType: userType)
+		
+//-----ADD SENTENCE HERE------//
+		
+		//call function with inputs
+		
 	}
+	
+	
+//Link Label Here
+	
+	
+	
+	//create function to change label text
+	func updateSentence(){
+		
+	}
+	
+	
+//-----STOP SENTENCE-----//
+	
 	
 //--View for key (CLICK TO COPY)--//
 	@IBOutlet weak var textViewOutlet: UITextView!
@@ -174,6 +193,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 			randomString += NSString(characters: &nextChar, length: 1) as String
 		}
 		print(randomString)
+		print(randomString.count)
 		textViewOutlet.text = randomString
 		return randomString
 	}
