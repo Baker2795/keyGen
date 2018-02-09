@@ -8,73 +8,128 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+
+
+class ViewController: UIViewController, UIGestureRecognizerDelegate {
+	
+	
 
 //--Default Values--//
-	//key length
-	var userLength = 1
+	//key length (default 18)
+	var userLength = 18
+	//key type (default both)
+	var userType = 2
+	//is capital? (default on)
+	var userCapital = true
 	//key type
 	var letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	
 //--On View Load--//
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		
 		let screenSize = UIScreen.main.bounds.size
 		let screenWidth = screenSize.width
 		let screenHeight = screenSize.height
-		
 		generateKeyButtonOutlet.layer.cornerRadius = 4.0
 		
-	//TEST
-		//change the 10 & the 0 to get different key types & lengths)
-		//see below for key type to number value
-		//once UI is set up we can change it to take user input instead of 10
-		//& assign numbers to the segmented control choice, then take that number here instead of 0
-		generateKey(keyLength: 10, keyType: 0)
+		
+		let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+		textViewOutlet.addGestureRecognizer(tap)
+		textViewOutlet.isUserInteractionEnabled = true
+		
+		
+		
+		
+		
+		//UiBar for keyboard
+		numberToolbar.barStyle = UIBarStyle.default
+		numberToolbar.items=[
+			UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ViewController.cancelBar)),
+			UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil),
+			UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(ViewController.doneBar))
+		]
+		numberToolbar.sizeToFit()
+		characterInputOutlet.inputAccessoryView = numberToolbar
+		
+		//Dismiss Keyboard
+		let dismiss: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.DismissKeyboard))
+		view.addGestureRecognizer(dismiss)
+		numberToolbar.backgroundColor = UIColor(red:0.13, green:0.75, blue:0.96, alpha:1.0)
     }
 	
+	
+//--KEYBAORD SETTINGS--//
+	let numberToolbar: UIToolbar = UIToolbar()
+	
+	//Dismiss Keyboard
+	@objc func DismissKeyboard(){
+		view.endEditing(true)
+	}
+	@objc func doneBar () {
+		characterInputOutlet.resignFirstResponder()
+	}
+	@objc func cancelBar () {
+		characterInputOutlet.text=""
+		userLength = 0
+		characterInputOutlet.resignFirstResponder()
+	}
+
+	@objc func handleTap(_ sender: UITapGestureRecognizer) {
+		print("Hello World")
+		UIPasteboard.general.string = textViewOutlet.text
+		print(textViewOutlet.text)
+	}
+	
+//--Select key length (UP TO 50,000 CHAR)--//
 	@IBOutlet weak var characterInputOutlet: UITextField!
 	@IBAction func characterInputAction(_ sender: Any) {
-		
+		if isStringAnInt(string: characterInputOutlet.text!) {
+			userLength = Int(characterInputOutlet.text!)!
+			print(userLength)
+		}
+		else {
+			print("input is not integer")
+		}
 	}
 	
+	func isStringAnInt(string: String) -> Bool {
+		return Int(string) != nil
+	}
 	
-	
+//--Select key type (NUMBERS/LETTERS/BOTH)--//
 	@IBOutlet weak var keyTypeOutlet: UISegmentedControl!
 	@IBAction func keyTypeAction(_ sender: Any) {
-		
+		switch keyTypeOutlet.selectedSegmentIndex {
+		case 0:
+			userType = 0
+		case 1:
+			userType = 1
+		case 2:
+			userType = 2
+		default:
+			userType = 2
+		}
 	}
 	
-	
-	
+//--Switch for user (CAPITAL/NO CAPITAL)--//
 	@IBOutlet weak var isCapitalOutlet: UISwitch!
 	@IBAction func isCapitalAction(_ sender: Any) {
-		
+		if isCapitalOutlet.isOn == true {
+			userCapital = true
+		}
+		else {
+			userCapital = false
+		}
 	}
 	
-	
-	
+//--Generate key button--//
 	@IBOutlet weak var generateKeyButtonOutlet: UIButton!
 	@IBAction func generateKeyButtonAction(_ sender: Any) {
-		generateKey(keyLength: 10, keyType: 0)
-		
+		generateKey(keyLength: userLength, keyType: userType)
 	}
 	
-	
-	
+//--View for key (CLICK TO COPY)--//
 	@IBOutlet weak var textViewOutlet: UITextView!
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -82,20 +137,32 @@ class ViewController: UIViewController {
 	func generateKey(keyLength: Int, keyType: Int){
 		//--Key Type Letters--//
 		if keyType == 0 {
-			letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+			letters = "0123456789"
 			randomString(length: keyLength)
 		}
 		//--Key Type Number--//
 		else if keyType == 1 {
-			letters = "0123456789"
+			if userCapital == true {
+				letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+			}
+			else {
+				letters = "abcdefghijklmnopqrstuvwxyz"
+			}
 			randomString(length: keyLength)
 		}
 		//--Key Type Both--//
 		else {
-			letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+			if userCapital == true {
+				letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+			}
+			else {
+				letters = "abcdefghijklmnopqrstuvwxyz0123456789"
+			}
 			randomString(length: keyLength)
 		}
 	}
+	
+	
 	
 //--Key Generator Function--//
 	func randomString(length: Int) -> String {
